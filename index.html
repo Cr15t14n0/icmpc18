@@ -2,58 +2,139 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ICMPC 18</title>
   <style>
-    * {
+    body {
+      background-color: #1a1a1a;
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      background-color: #1a1919;
-      font-family: Arial, sans-serif;
-      width: 100%;
-      height: 100%;
-      overflow-x: hidden;   /* impede rolagem lateral */
-      overflow-y: auto;     /* permite rolagem vertical natural */
+      font-family: sans-serif;
     }
 
     .container {
-      max-width: 430px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 16px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      max-width: 480px;
+      margin: auto;
+      padding: 10px;
     }
 
     .logo {
-      width: 40%;
-      max-width: 160px;
-      height: auto;
-      margin-bottom: 20px;
+      width: 100%;
+      max-width: 300px;
+      margin: 20px auto;
+      display: block;
     }
 
-    .menu-button {
-      width: 85%;
-      max-width: 400px;
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f0f0f0;
+      border-radius: 20px;
+      padding: 10px;
+      margin: 15px 0;
+      height: 90px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .button img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .button:hover {
+      transform: scale(1.02);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000e0;
+      overflow-y: auto;
+    }
+
+    .modal-content {
+      position: relative;
+      width: 100%;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 60px; /* espaço para o botão */
+    }
+
+    .modal-content img {
+      width: 100%;
       height: auto;
-      margin: 10px 0;
-      display: block;
+      max-width: 100%;
+      object-fit: contain;
+      margin-top: 20px;
+    }
+
+    .close-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ffffffcc;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 20;
+    }
+
+    .close-btn:hover {
+      background-color: #fff;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <img src="icones/Logo.png" alt="ICMPC Logo" class="logo" />
-    <img src="icones/today.png" alt="Today's Talks" class="menu-button" />
-    <img src="icones/rooms.png" alt="Rooms" class="menu-button" />
-    <img src="icones/full.png" alt="Full Schedule" class="menu-button" />
-    <img src="icones/guest.png" alt="Guest Speakers" class="menu-button" />
-    <img src="icones/full.png" alt="Full Schedule Again" class="menu-button" />
+
+    <!-- Botões com ícones dimensionados -->
+    <div class="button" onclick="openModal()">
+      <img src="icones/today.png" alt="Today's Talks" />
+    </div>
+
+    <div class="button">
+      <img src="icones/rooms.png" alt="Rooms Presentations" />
+    </div>
+
+    <div class="button">
+      <img src="icones/full.png" alt="Full Schedule" />
+    </div>
+
+    <div class="button">
+      <img src="icones/guest.png" alt="Guest Speakers" />
+    </div>
   </div>
+
+  <!-- Modal da Programação -->
+  <div class="modal" id="programModal">
+    <div class="modal-content">
+      <img src="Programacao/Dia1-A.png" alt="Programação Dia 1" />
+    </div>
+    <button class="close-btn" onclick="closeModal()">Voltar</button>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('programModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('programModal').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
