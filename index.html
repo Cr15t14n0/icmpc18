@@ -106,10 +106,10 @@
       background-color: #fff;
     }
 
-    .page-button,
-    .page-back-button {
+    .page-button {
       position: absolute;
       top: 20px;
+      right: 20px;
       background-color: #ffffffcc;
       border: none;
       color: #000;
@@ -120,12 +120,19 @@
       z-index: 20;
     }
 
-    .page-button {
-      right: 20px;
-    }
-
-    .page-back-button {
+    .home-top-btn {
+      position: absolute;
+      top: 20px;
       left: 20px;
+      background-color: #ffffffcc;
+      border: none;
+      color: #000;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 20;
+      display: none;
     }
   </style>
 </head>
@@ -153,12 +160,12 @@
 
   <!-- Modal da Programação -->
   <div class="modal" id="programModal">
-    <button class="page-button" id="page2Button" onclick="goToPage2()">Page 2 →</button>
-    <button class="page-back-button" id="page1Button" onclick="goToPage1()" style="display: none;">← Page 1</button>
+    <button class="page-button" onclick="goToPage2()">Page 2 →</button>
+    <button class="home-top-btn" id="homeTopBtn" onclick="closeModal()">← Home</button>
     <div class="modal-content">
       <img id="programImage" src="Programacao/Dia1-A.png" alt="Programação Dia 1" />
     </div>
-    <button class="close-btn" onclick="handleBack()">Back</button>
+    <button class="close-btn" onclick="closeModal()">Home</button>
   </div>
 
   <script>
@@ -168,10 +175,7 @@
       document.getElementById('programImage').src = imageSrc;
       document.getElementById('programModal').style.display = 'block';
       currentPage = (imageSrc.includes('Dia1-B')) ? 'page2' : 'page1';
-
-      // Controla os botões
-      document.getElementById('page2Button').style.display = currentPage === 'page1' ? 'block' : 'none';
-      document.getElementById('page1Button').style.display = currentPage === 'page2' ? 'block' : 'none';
+      updateNavigationButtons();
     }
 
     function closeModal() {
@@ -182,15 +186,16 @@
       openModal('Programacao/Dia1-B.png');
     }
 
-    function goToPage1() {
-      openModal('Programacao/Dia1-A.png');
-    }
+    function updateNavigationButtons() {
+      const homeTopBtn = document.getElementById('homeTopBtn');
+      const pageBtn = document.querySelector('.page-button');
 
-    function handleBack() {
       if (currentPage === 'page2') {
-        goToPage1();
+        homeTopBtn.style.display = 'none';
+        pageBtn.style.display = 'none';
       } else {
-        closeModal();
+        homeTopBtn.style.display = 'block';
+        pageBtn.style.display = 'block';
       }
     }
   </script>
