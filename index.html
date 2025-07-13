@@ -37,7 +37,6 @@
       transition: transform 0.2s;
     }
 
-    /* Estilos individuais para os botões */
     .button:nth-of-type(2),
     .button:nth-of-type(4) {
       background-color: hsl(0, 0%, 90%);
@@ -107,24 +106,16 @@
       background-color: #fff;
     }
 
-    /* Botão Page 2 no topo direito */
-    .page2-btn {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background-color: #ffffffcc;
-      color: #000;
-      font-weight: bold;
-      padding: 8px 12px;
+    .page-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: transparent;
       border: none;
-      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
       cursor: pointer;
       z-index: 20;
-      font-size: 14px;
-    }
-
-    .page2-btn:hover {
-      background-color: #fff;
     }
   </style>
 </head>
@@ -133,7 +124,7 @@
     <img src="icones/Logo.png" alt="ICMPC Logo" class="logo" />
 
     <!-- Botões com ícones dimensionados -->
-    <div class="button" onclick="openModal()">
+    <div class="button" onclick="openModal('Programacao/Dia1-A.png')">
       <img src="icones/today.png" alt="Today's Talks" />
     </div>
 
@@ -152,17 +143,20 @@
 
   <!-- Modal da Programação -->
   <div class="modal" id="programModal">
+    <button class="page-button" onclick="goToPage2()">Page 2 →</button>
     <div class="modal-content">
-      <img id="modalImage" src="Programacao/Dia1-A.png" alt="Programação Dia 1" />
+      <img id="programImage" src="Programacao/Dia1-A.png" alt="Programação Dia 1" />
     </div>
-    <button class="close-btn" onclick="closeModal()">Back</button>
-    <button class="page2-btn" onclick="goToPage2()">Page 2 →</button>
+    <button class="close-btn" onclick="handleBack()">Back</button>
   </div>
 
   <script>
-    function openModal() {
+    let currentPage = 'page1';
+
+    function openModal(imageSrc) {
+      document.getElementById('programImage').src = imageSrc;
       document.getElementById('programModal').style.display = 'block';
-      document.getElementById('modalImage').src = "Programacao/Dia1-A.png";
+      currentPage = (imageSrc.includes('Dia1-B')) ? 'page2' : 'page1';
     }
 
     function closeModal() {
@@ -170,7 +164,15 @@
     }
 
     function goToPage2() {
-      document.getElementById('modalImage').src = "Programacao/Dia1-B.png";
+      openModal('Programacao/Dia1-B.png');
+    }
+
+    function handleBack() {
+      if (currentPage === 'page2') {
+        openModal('Programacao/Dia1-A.png');
+      } else {
+        closeModal();
+      }
     }
   </script>
 </body>
