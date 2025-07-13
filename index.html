@@ -106,19 +106,27 @@
       background-color: #fff;
     }
 
-   .page-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: #ffffffcc;
-  border: none;
-  color: #000;
-  padding: 10px 16px;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  z-index: 20;
-}
+    .page-button,
+    .page-back-button {
+      position: absolute;
+      top: 20px;
+      background-color: #ffffffcc;
+      border: none;
+      color: #000;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 20;
+    }
+
+    .page-button {
+      right: 20px;
+    }
+
+    .page-back-button {
+      left: 20px;
+    }
   </style>
 </head>
 <body>
@@ -145,7 +153,8 @@
 
   <!-- Modal da Programação -->
   <div class="modal" id="programModal">
-    <button class="page-button" onclick="goToPage2()">Page 2 →</button>
+    <button class="page-button" id="page2Button" onclick="goToPage2()">Page 2 →</button>
+    <button class="page-back-button" id="page1Button" onclick="goToPage1()" style="display: none;">← Page 1</button>
     <div class="modal-content">
       <img id="programImage" src="Programacao/Dia1-A.png" alt="Programação Dia 1" />
     </div>
@@ -159,6 +168,10 @@
       document.getElementById('programImage').src = imageSrc;
       document.getElementById('programModal').style.display = 'block';
       currentPage = (imageSrc.includes('Dia1-B')) ? 'page2' : 'page1';
+
+      // Controla os botões
+      document.getElementById('page2Button').style.display = currentPage === 'page1' ? 'block' : 'none';
+      document.getElementById('page1Button').style.display = currentPage === 'page2' ? 'block' : 'none';
     }
 
     function closeModal() {
@@ -169,9 +182,13 @@
       openModal('Programacao/Dia1-B.png');
     }
 
+    function goToPage1() {
+      openModal('Programacao/Dia1-A.png');
+    }
+
     function handleBack() {
       if (currentPage === 'page2') {
-        openModal('Programacao/Dia1-A.png');
+        goToPage1();
       } else {
         closeModal();
       }
