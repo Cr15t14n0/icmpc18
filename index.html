@@ -57,17 +57,6 @@
       transform: scale(1.02);
     }
 
-    .top-right-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background-color: #ffffffcc;
-      padding: 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 30;
-    }
-
     /* Modal */
     .modal {
       display: none;
@@ -116,6 +105,18 @@
     .close-btn:hover {
       background-color: #fff;
     }
+
+    .page-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 20;
+    }
   </style>
 </head>
 <body>
@@ -123,7 +124,7 @@
     <img src="icones/Logo.png" alt="ICMPC Logo" class="logo" />
 
     <!-- Botões com ícones dimensionados -->
-    <div class="button" onclick="openModal()">
+    <div class="button" onclick="openModal('Programacao/Dia1-A.png')">
       <img src="icones/today.png" alt="Today's Talks" />
     </div>
 
@@ -140,67 +141,39 @@
     </div>
   </div>
 
-  <!-- Botão adicional no canto superior direito -->
-  <div class="top-right-btn" onclick="openModal2()">+</div>
-
-  <!-- Modal Página 1 -->
+  <!-- Modal da Programação -->
   <div class="modal" id="programModal">
-    <div class="modal-content" id="modalContent">
-      <img src="Programacao/Dia1-A.png" alt="Programação Dia 1" />
-    </div>
-    <button class="close-btn" onclick="closeModal()">Back</button>
-  </div>
-
-  <!-- Modal Página 2 -->
-  <div class="modal" id="programModal2">
+    <button class="page-button" onclick="goToPage2()">Page 2 →</button>
     <div class="modal-content">
-      <img src="Programacao/Dia1-B.png" alt="Programação Dia 1 - Parte 2" />
+      <img id="programImage" src="Programacao/Dia1-A.png" alt="Programação Dia 1" />
     </div>
-    <button class="close-btn" onclick="closeModal2()">Back</button>
+    <button class="close-btn" onclick="handleBack()">Back</button>
   </div>
 
   <script>
-    function openModal() {
+    let currentPage = 'page1';
+
+    function openModal(imageSrc) {
+      document.getElementById('programImage').src = imageSrc;
       document.getElementById('programModal').style.display = 'block';
+      currentPage = (imageSrc.includes('Dia1-B')) ? 'page2' : 'page1';
     }
 
     function closeModal() {
-      const modal1 = document.getElementById('programModal');
-      const modal2 = document.getElementById('programModal2');
-      if (modal2.style.display === 'block') {
-        modal2.style.display = 'none';
-        modal1.style.display = 'block';
+      document.getElementById('programModal').style.display = 'none';
+    }
+
+    function goToPage2() {
+      openModal('Programacao/Dia1-B.png');
+    }
+
+    function handleBack() {
+      if (currentPage === 'page2') {
+        openModal('Programacao/Dia1-A.png');
       } else {
-        modal1.style.display = 'none';
+        closeModal();
       }
     }
-
-    function openModal2() {
-      document.getElementById('programModal2').style.display = 'block';
-    }
-
-    function closeModal2() {
-      document.getElementById('programModal2').style.display = 'none';
-    }
-
-    // Suporte a swipe (toque e arraste)
-    let startX = 0;
-    let threshold = 50;
-
-    document.addEventListener('touchstart', function(e) {
-      startX = e.touches[0].clientX;
-    });
-
-    document.addEventListener('touchend', function(e) {
-      let endX = e.changedTouches[0].clientX;
-      if (document.getElementById('programModal').style.display === 'block') {
-        if (endX - startX < -threshold) {
-          // Swipe para a esquerda
-          openModal2();
-          closeModal();
-        }
-      }
-    });
   </script>
 </body>
 </html>
