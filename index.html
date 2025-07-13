@@ -105,7 +105,7 @@
       background-color: #fff;
     }
 
-    .page-button-right {
+    .page-button {
       position: absolute;
       top: 20px;
       right: 20px;
@@ -119,7 +119,8 @@
       z-index: 20;
     }
 
-    .page-button-left {
+    .page1-left,
+    .page2-left {
       position: absolute;
       top: 20px;
       left: 20px;
@@ -131,6 +132,14 @@
       font-size: 16px;
       cursor: pointer;
       z-index: 20;
+    }
+
+    .page1-left {
+      display: none;
+    }
+
+    .page2-left {
+      display: none;
     }
   </style>
 </head>
@@ -156,12 +165,13 @@
   </div>
 
   <div class="modal" id="programModal">
-    <button id="leftButton" class="page-button-left" onclick="goToPage1()" style="display: none;">← Page 1</button>
-    <button id="rightButton" class="page-button-right" onclick="goToPage2()" style="display: none;">Page 2 →</button>
+    <button class="page-button" id="page2Btn" onclick="goToPage2()">Page 2 →</button>
+    <button class="page1-left" id="homeBtn" onclick="closeModal()">🏠 Home</button>
+    <button class="page2-left" id="page1Btn" onclick="goToPage1()">← Page 1</button>
     <div class="modal-content">
       <img id="programImage" src="Programacao/Dia1-A.png" alt="Programação Dia 1" />
     </div>
-    <button class="close-btn" onclick="goHome()">Home</button>
+    <button class="close-btn" onclick="handleBack()">Back</button>
   </div>
 
   <script>
@@ -170,8 +180,8 @@
     function openModal(imageSrc) {
       document.getElementById('programImage').src = imageSrc;
       document.getElementById('programModal').style.display = 'block';
-      currentPage = (imageSrc.includes('Dia1-B')) ? 'page2' : 'page1';
-      updateButtons();
+      currentPage = imageSrc.includes('Dia1-B') ? 'page2' : 'page1';
+      updateNavButtons();
     }
 
     function closeModal() {
@@ -186,13 +196,18 @@
       openModal('Programacao/Dia1-A.png');
     }
 
-    function goHome() {
-      closeModal();
+    function handleBack() {
+      if (currentPage === 'page2') {
+        goToPage1();
+      } else {
+        closeModal();
+      }
     }
 
-    function updateButtons() {
-      document.getElementById('rightButton').style.display = (currentPage === 'page1') ? 'block' : 'none';
-      document.getElementById('leftButton').style.display = (currentPage === 'page2') ? 'block' : 'block';
+    function updateNavButtons() {
+      document.getElementById('page2Btn').style.display = currentPage === 'page1' ? 'block' : 'none';
+      document.getElementById('homeBtn').style.display = currentPage === 'page1' ? 'block' : 'none';
+      document.getElementById('page1Btn').style.display = currentPage === 'page2' ? 'block' : 'none';
     }
   </script>
 </body>
