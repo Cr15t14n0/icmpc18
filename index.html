@@ -106,6 +106,26 @@
     .close-btn:hover {
       background-color: #fff;
     }
+
+    /* Botão Page 2 no topo direito */
+    .page2-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background-color: #ffffffcc;
+      color: #000;
+      font-weight: bold;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 20;
+      font-size: 14px;
+    }
+
+    .page2-btn:hover {
+      background-color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -133,18 +153,24 @@
   <!-- Modal da Programação -->
   <div class="modal" id="programModal">
     <div class="modal-content">
-      <img src="Programacao/Dia1-A.png" alt="Programação Dia 1" />
+      <img id="modalImage" src="Programacao/Dia1-A.png" alt="Programação Dia 1" />
     </div>
     <button class="close-btn" onclick="closeModal()">Back</button>
+    <button class="page2-btn" onclick="goToPage2()">Page 2 →</button>
   </div>
 
   <script>
     function openModal() {
       document.getElementById('programModal').style.display = 'block';
+      document.getElementById('modalImage').src = "Programacao/Dia1-A.png";
     }
 
     function closeModal() {
       document.getElementById('programModal').style.display = 'none';
+    }
+
+    function goToPage2() {
+      document.getElementById('modalImage').src = "Programacao/Dia1-B.png";
     }
   </script>
 </body>
