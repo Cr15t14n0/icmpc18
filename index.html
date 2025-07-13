@@ -57,7 +57,6 @@
       transform: scale(1.02);
     }
 
-    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -106,7 +105,7 @@
       background-color: #fff;
     }
 
-    .page-button {
+    .page-button-right {
       position: absolute;
       top: 20px;
       right: 20px;
@@ -120,7 +119,7 @@
       z-index: 20;
     }
 
-    .home-top-btn {
+    .page-button-left {
       position: absolute;
       top: 20px;
       left: 20px;
@@ -132,7 +131,6 @@
       font-size: 16px;
       cursor: pointer;
       z-index: 20;
-      display: none;
     }
   </style>
 </head>
@@ -140,7 +138,6 @@
   <div class="container">
     <img src="icones/Logo.png" alt="ICMPC Logo" class="logo" />
 
-    <!-- Botões com ícones dimensionados -->
     <div class="button" onclick="openModal('Programacao/Dia1-A.png')">
       <img src="icones/today.png" alt="Today's Talks" />
     </div>
@@ -158,14 +155,13 @@
     </div>
   </div>
 
-  <!-- Modal da Programação -->
   <div class="modal" id="programModal">
-    <button class="page-button" onclick="goToPage2()">Page 2 →</button>
-    <button class="home-top-btn" id="homeTopBtn" onclick="closeModal()">← Home</button>
+    <button id="leftButton" class="page-button-left" onclick="goToPage1()" style="display: none;">← Page 1</button>
+    <button id="rightButton" class="page-button-right" onclick="goToPage2()" style="display: none;">Page 2 →</button>
     <div class="modal-content">
       <img id="programImage" src="Programacao/Dia1-A.png" alt="Programação Dia 1" />
     </div>
-    <button class="close-btn" onclick="closeModal()">Home</button>
+    <button class="close-btn" onclick="goHome()">Home</button>
   </div>
 
   <script>
@@ -175,7 +171,7 @@
       document.getElementById('programImage').src = imageSrc;
       document.getElementById('programModal').style.display = 'block';
       currentPage = (imageSrc.includes('Dia1-B')) ? 'page2' : 'page1';
-      updateNavigationButtons();
+      updateButtons();
     }
 
     function closeModal() {
@@ -186,17 +182,17 @@
       openModal('Programacao/Dia1-B.png');
     }
 
-    function updateNavigationButtons() {
-      const homeTopBtn = document.getElementById('homeTopBtn');
-      const pageBtn = document.querySelector('.page-button');
+    function goToPage1() {
+      openModal('Programacao/Dia1-A.png');
+    }
 
-      if (currentPage === 'page2') {
-        homeTopBtn.style.display = 'none';
-        pageBtn.style.display = 'none';
-      } else {
-        homeTopBtn.style.display = 'block';
-        pageBtn.style.display = 'block';
-      }
+    function goHome() {
+      closeModal();
+    }
+
+    function updateButtons() {
+      document.getElementById('rightButton').style.display = (currentPage === 'page1') ? 'block' : 'none';
+      document.getElementById('leftButton').style.display = (currentPage === 'page2') ? 'block' : 'block';
     }
   </script>
 </body>
