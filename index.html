@@ -151,7 +151,7 @@
       <img src="icones/today.png" alt="Today's Talks" />
     </div>
 
-    <div class="button">
+    <div class="button" onclick="openModal('Programacao/symposia.png')">
       <img src="icones/rooms.png" alt="Rooms Presentations" />
     </div>
 
@@ -180,7 +180,15 @@
     function openModal(imageSrc) {
       document.getElementById('programImage').src = imageSrc;
       document.getElementById('programModal').style.display = 'block';
-      currentPage = imageSrc.includes('Dia1-B') ? 'page2' : 'page1';
+
+      if (imageSrc.includes('Dia1-B')) {
+        currentPage = 'page2';
+      } else if (imageSrc.includes('symposia')) {
+        currentPage = 'rooms';
+      } else {
+        currentPage = 'page1';
+      }
+
       updateNavButtons();
     }
 
@@ -206,7 +214,7 @@
 
     function updateNavButtons() {
       document.getElementById('page2Btn').style.display = currentPage === 'page1' ? 'block' : 'none';
-      document.getElementById('homeBtn').style.display = currentPage === 'page1' ? 'block' : 'none';
+      document.getElementById('homeBtn').style.display = (currentPage === 'page1' || currentPage === 'rooms') ? 'block' : 'none';
       document.getElementById('page1Btn').style.display = currentPage === 'page2' ? 'block' : 'none';
     }
   </script>
